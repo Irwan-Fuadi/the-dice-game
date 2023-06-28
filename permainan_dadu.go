@@ -63,7 +63,7 @@ func beginRoll(game map[int]*Player) map[int][]int {
 	return rollObj
 }
 
-func evaluatePemain(game map[int]*Player, p Player, rollRound map[int][]int) {
+func evaluatePlayer(game map[int]*Player, p Player, rollRound map[int][]int) {
 	fetch := 0
 	for _, val := range rollRound[p.Pemain] {
 		if val == 1 {
@@ -110,7 +110,7 @@ func findWinner(game map[int]*Player) []int {
 	return winnerArr
 }
 
-func playing(game map[int]*Player, currentState int) {
+func play(game map[int]*Player, currentState int) {
 	if currentState == 1 {
 		winner := findWinner(game)
 		fmt.Println("Permainan Selesai! Pemenangnya adalah:", winner)
@@ -119,7 +119,7 @@ func playing(game map[int]*Player, currentState int) {
 
 	roundResult := beginRoll(game)
 	for _, player := range game {
-		evaluatePemain(game, *player, roundResult)
+		evaluatePlayer(game, *player, roundResult)
 	}
 
 	for i, player := range game {
@@ -139,12 +139,12 @@ func playing(game map[int]*Player, currentState int) {
 		}
 	}
 
-	playing(game, currentState)
+	play(game, currentState)
 }
 
 func main() {
 	pemain := 3
 	dadu := 4
 	game := initiateGame(pemain, dadu)
-	playing(game, pemain)
+	play(game, pemain)
 }
